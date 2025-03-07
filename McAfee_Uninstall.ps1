@@ -29,7 +29,7 @@ Download-File -url $mcprUrl -output $mcprPath
 
 Write-Host "Downloading 7-Zip..."
 Download-File -url $sevenZipUrl -output $sevenZipZipPath
-Expand-Archive -Path $sevenZipZipPath -DestinationPath "$hp2iFolder\7-Zip" -Force
+Expand-Archive -Path $sevenZipZipPath -DestinationPath $hp2iFolder -Force
 
 # Extract MCPR.exe using 7-Zip
 Write-Host "Extracting MCPR.exe..."
