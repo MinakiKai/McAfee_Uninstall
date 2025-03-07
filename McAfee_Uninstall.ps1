@@ -11,9 +11,10 @@ if (-not (Test-Path -Path $hp2iFolder)) {
 $mcprPath = "$hp2iFolder\MCPR.exe"
 $sevenZipPath = "$hp2iFolder\7-Zip\7z.exe"
 $sevenZipZipPath = "$hp2iFolder\7-zip.zip"
+$sevenZipExtractPath = "$hp2iFolder\7-Zip"
 $mcprExtractedFolder = "$hp2iFolder\MCPR_Extraction"
 
-# Google Drive direct download links (Replace with your own FILE_IDs)
+# GitHub direct download links (Replace with your own FILE_IDs)
 $mcprUrl = "https://github.com/MinakiKai/McAfee_Uninstall/raw/refs/heads/main/MCPR.exe"
 $sevenZipUrl = "https://github.com/MinakiKai/McAfee_Uninstall/raw/refs/heads/main/7-Zip.zip"
 
@@ -29,7 +30,16 @@ Download-File -url $mcprUrl -output $mcprPath
 
 Write-Host "Downloading 7-Zip..."
 Download-File -url $sevenZipUrl -output $sevenZipZipPath
-Expand-Archive -Path $sevenZipZipPath -DestinationPath $hp2iFolder -Force
+
+# Extract 7-Zip correctly (Ensure it does not create 7-Zip\7-Zip)
+Write-Host "Extracting 7-Zip..."
+Expand-Archive -Path $sevenZipZipPath -DestinationPath "$hp2iFolder" -Force
+
+# Check if it created a nested "7-Zip\7-Zip" folder, and fix it
+if (Test-Path "$sevenZipExtractPath\7-Zip") {
+    Move-Item -Path "$sevenZipExtractPath\7-Zip\*" -Destination $sevenZipExtractPath -Force
+    Remove-Item -Path "$sevenZipExtractPath\7-Zip" -Recurse -Force
+}
 
 # Extract MCPR.exe using 7-Zip
 Write-Host "Extracting MCPR.exe..."
@@ -52,3 +62,9 @@ if ($mccleanupPath) {
 } else {
     Write-Host "mccleanup.exe not found."
 }
+
+# Cleanup all files after uninstallation
+Write-Host "Cleaning up..."
+Remove-Item -Path $hp2iFolder -Recurse -Force -ErrorAction SilentlyContinue
+
+Write-Host "McAfee uninstallation complete."
