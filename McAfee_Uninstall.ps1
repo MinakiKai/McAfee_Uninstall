@@ -1,6 +1,5 @@
-# Set up the HP2i working directory in the current location
-$currentFolder = Get-Location
-$hp2iFolder = "$currentFolder\HP2i"
+# Set up the HP2i working directory
+$hp2iFolder = "C:\HP2i"
 
 # Ensure HP2i directory exists
 if (-not (Test-Path -Path $hp2iFolder)) {
