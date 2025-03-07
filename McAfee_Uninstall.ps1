@@ -52,9 +52,3 @@ if ($mccleanupPath) {
 } else {
     Write-Host "mccleanup.exe not found."
 }
-
-# Cleanup all files after uninstallation
-Write-Host "Cleaning up..."
-Remove-Item -Path $hp2iFolder -Recurse -Force -ErrorAction SilentlyContinue
-
-Write-Host "McAfee uninstallation complete."
