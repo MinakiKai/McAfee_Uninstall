@@ -1,5 +1,5 @@
 # Set up the HP2i working directory
-$hp2iFolder = "C:\HP2i"
+$hp2iFolder = "C:\HP2i_McAfee_Uninstall"
 
 # Ensure HP2i directory exists
 if (-not (Test-Path -Path $hp2iFolder)) {
