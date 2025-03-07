@@ -10,12 +10,12 @@ if (-not (Test-Path -Path $hp2iFolder)) {
 # Define file paths
 $mcprPath = "$hp2iFolder\MCPR.exe"
 $sevenZipPath = "$hp2iFolder\7-Zip\7z.exe"
-$sevenZipZipPath = "$hp2iFolder\7zip.zip"
+$sevenZipZipPath = "$hp2iFolder\7-zip.zip"
 $mcprExtractedFolder = "$hp2iFolder\MCPR_Extraction"
 
 # Google Drive direct download links (Replace with your own FILE_IDs)
-$mcprUrl = "https://drive.google.com/file/d/1Oe3d_quFoPuGJp6eYUMMujPvBethg0gn/view?usp=sharing"
-$sevenZipUrl = "https://drive.google.com/drive/folders/1OkI-TI_yNQEdLoyrgXNQmYqLyHXyAry0?usp=sharing"
+$mcprUrl = "https://github.com/MinakiKai/McAfee_Uninstall/raw/refs/heads/main/MCPR.exe"
+$sevenZipUrl = "https://github.com/MinakiKai/McAfee_Uninstall/raw/refs/heads/main/7-Zip.zip"
 
 # Function to download files
 Function Download-File {
