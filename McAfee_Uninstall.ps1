@@ -23,6 +23,8 @@ Function Download-File {
     Invoke-WebRequest -Uri $url -OutFile $output
 }
 
+Write-Host "Downloading the requirements..."
+
 Write-Host "Downloading 7-Zip..."
 Download-File -url $sevenZipUrl -output $sevenZipZipPath
 
@@ -52,7 +54,7 @@ Remove-Item -Path $mcprPath -Recurse -Force -ErrorAction SilentlyContinue
 $mccleanupPath = Get-ChildItem -Path $mcprExtractedFolder -Recurse -Filter "mccleanup.exe" | Select-Object -First 1
 
 if ($mccleanupPath) {
-    Write-Host "mccleanup.exe found at: $($mccleanupPath.FullName)"
+    Write-Host "McAfee cleaning tool found at: $($mccleanupPath.FullName)"
 
     # Stop McAfee services
     Get-Service | Where-Object { $_.Name -like "*McAfee*" } | Stop-Service -Force
@@ -64,11 +66,11 @@ if ($mccleanupPath) {
     Write-Host "Cleaning up McAfee. This may take several minutes..."
     Start-Process -FilePath $mccleanupPath.FullName -ArgumentList $arguments -NoNewWindow -Wait
 } else {
-    Write-Host "mccleanup.exe not found."
+    Write-Host "Couldn't execute the McAfee cleaning."
 }
 
 # Cleanup all files after uninstallation
-Write-Host "Cleaning up..."
+Write-Host "Cleaning up the requirements..."
 Remove-Item -Path $hp2iFolder -Recurse -Force -ErrorAction SilentlyContinue
 
 Write-Host "McAfee uninstallation complete."
