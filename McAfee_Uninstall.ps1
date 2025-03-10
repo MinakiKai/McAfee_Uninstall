@@ -23,10 +23,6 @@ Function Download-File {
     Invoke-WebRequest -Uri $url -OutFile $output
 }
 
-# Download necessary files
-Write-Host "Downloading MCPR.exe..."
-Download-File -url $mcprUrl -output $mcprPath
-
 Write-Host "Downloading 7-Zip..."
 Download-File -url $sevenZipUrl -output $sevenZipZipPath
 
@@ -40,9 +36,17 @@ if (Test-Path "$sevenZipExtractPath\7-Zip") {
     Remove-Item -Path "$sevenZipExtractPath\7-Zip" -Recurse -Force
 }
 
+# Download necessary files
+Write-Host "Downloading MCPR.exe..."
+Download-File -url $mcprUrl -output $mcprPath
+
 # Extract MCPR.exe using 7-Zip
 Write-Host "Extracting MCPR.exe..."
 Start-Process -FilePath $sevenZipPath -ArgumentList "x `"$mcprPath`" -o`"$mcprExtractedFolder`" -y" -NoNewWindow -Wait
+
+# Cleanup MCPR app as it has vulnerabilities (https://www.mcafee.com/support/s/article/000002122?language=fr)
+Write-Host "Cleaning up MCPR..."
+Remove-Item -Path $mcprPath -Recurse -Force -ErrorAction SilentlyContinue
 
 # Locate mccleanup.exe
 $mccleanupPath = Get-ChildItem -Path $mcprExtractedFolder -Recurse -Filter "mccleanup.exe" | Select-Object -First 1
