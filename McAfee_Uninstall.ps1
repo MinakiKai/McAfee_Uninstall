@@ -17,10 +17,15 @@ $mcprExtractedFolder = "$hp2iFolder\MCPR_Extraction"
 $mcprUrl = "https://github.com/MinakiKai/McAfee_Uninstall/raw/refs/heads/main/MCPR.exe"
 $sevenZipUrl = "https://github.com/MinakiKai/McAfee_Uninstall/raw/refs/heads/main/7-Zip.zip"
 
-# Function to download files
 Function Download-File {
     param([string]$url, [string]$output)
-    Invoke-WebRequest -Uri $url -OutFile $output
+    
+    try {
+        Write-Host "Downloading from $url..."
+        Invoke-WebRequest -Uri $url -OutFile $output -UseBasicParsing -ErrorAction Stop
+    } catch {
+        Write-Host "Failed to download $url. Error: $_"
+    }
 }
 
 Write-Host "Downloading the requirements in C:\HP2i_McAfee_Uninstall..."
