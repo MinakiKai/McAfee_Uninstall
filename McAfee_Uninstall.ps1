@@ -23,7 +23,7 @@ Function Download-File {
     Invoke-WebRequest -Uri $url -OutFile $output
 }
 
-Write-Host "Downloading the requirements..."
+Write-Host "Downloading the requirements in C:\HP2i_McAfee_Uninstall..."
 
 Write-Host "Downloading 7-Zip..."
 Download-File -url $sevenZipUrl -output $sevenZipZipPath
