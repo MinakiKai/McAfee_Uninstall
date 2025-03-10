@@ -69,7 +69,7 @@ if ($mccleanupPath) {
 
     # Run mccleanup.exe silently
     Write-Host "Cleaning up McAfee. This may take several minutes..."
-    Start-Process -FilePath $mccleanupPath.FullName -ArgumentList $arguments -NoNewWindow -Wait
+    cmd /c "echo. | `"$($mccleanupPath.FullName)`" $arguments"
 } else {
     Write-Host "Couldn't execute the McAfee cleaning."
 }
