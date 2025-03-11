@@ -69,10 +69,13 @@ if ($mccleanupPath) {
 
     # Run mccleanup.exe silently
     Write-Host "Cleaning up McAfee. This may take several minutes..."
-    Start-Process -FilePath $mccleanupPath.FullName -ArgumentList $arguments -NoNewWindow -Wait
-} else {
-    Write-Host "Couldn't execute the McAfee cleaning."
-}
+    try {
+    # Attempt to run mccleanup with cmd
+    cmd /c "echo. | `"$($mccleanupPath.FullName)`" $arguments"
+    } catch {
+        # If the above fails, use the powershell method as a fallback
+        Start-Process -FilePath $mccleanupPath.FullName -ArgumentList $arguments -NoNewWindow -Wait
+    }
 
 # Cleanup all files after uninstallation
 Write-Host "Cleaning up the requirements..."
