@@ -76,6 +76,7 @@ if ($mccleanupPath) {
         # If the above fails, use the powershell method as a fallback
         Start-Process -FilePath $mccleanupPath.FullName -ArgumentList $arguments -NoNewWindow -Wait
     }
+}
 
 # Cleanup all files after uninstallation
 Write-Host "Cleaning up the requirements..."
